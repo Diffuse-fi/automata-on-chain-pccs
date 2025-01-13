@@ -8,8 +8,11 @@ pragma solidity ^0.8.0;
 contract P256Configuration is Script {
     using BytesUtils for bytes;
 
-    address constant RIP7212_P256_PRECOMPILE = 0x0000000000000000000000000000000000000100;
-    address constant DAIMO_P256 = 0xc2b78104907F722DABAc4C69f826a522B2754De4;
+    // creare2 allows to deploy DAIMO_P256 on deterministic address 0xc2b78104907F722DABAc4C69f826a522B2754De4
+    // but only with their key. Our key will produce different address, thats why switch to env vars
+    // precompile address theoretically may be also different from 0x100
+    address immutable RIP7212_P256_PRECOMPILE = vm.envAddress("RIP7212_P256_PRECOMPILE");
+    address immutable DAIMO_P256 = vm.envAddress("DAIMO_P256");
 
     bytes constant test_pubkey =
         hex"710f9d7cb59f86798aaf92138320831b778016d02cf0f5b416a76917f85edd4d7440615935921eaaa33c66c6cf4b745e70176a391610ab14f845d7ff39b112a3";
