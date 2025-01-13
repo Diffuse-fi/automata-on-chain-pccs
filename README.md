@@ -19,7 +19,7 @@ On-chain PCCS provides an open and permissionless service where users can freely
 
 ## Contracts
 
-> ℹ️ **Note**: 
+> ℹ️ **Note**:
 >
 > The deployment addresses shown here are currently based on the latest [changes](https://github.com/automata-network/automata-on-chain-pccs/pull/9) made.
 >
@@ -194,7 +194,11 @@ To view gas report, pass the `--gas-report` flag.
 - Deploy the Helper contracts
 
 ```bash
-forge script DeployHelpers --rpc-url $RPC_URL -vvv --broadcast
+
+forge script DeployHelpers --rpc-url $RPC_URL -vvvv --broadcast --sig "deployEnclaveIdentityHelper()"
+forge script DeployHelpers --rpc-url $RPC_URL -vvvv --broadcast --sig "deployFmspcTcbHelper()"
+forge script DeployHelpers --rpc-url $RPC_URL -vvvv --broadcast --sig "deployPckHelper()"
+forge script DeployHelpers --rpc-url $RPC_URL -vvvv --broadcast --sig "deployX509CrlHelper()"```
 ```
 
 Make sure to update `.env` file with the appropriate addresses, then run `source .env`.
@@ -202,5 +206,18 @@ Make sure to update `.env` file with the appropriate addresses, then run `source
 - Deploy `automata-pccs`
 
 ```bash
+<<<<<<< HEAD
 forge script DeployAutomataDao --rpc-url $RPC_URL -vvv --broadcast --sig "deployAll(bool)" true
 ```
+=======
+forge script DeployAutomataDao --rpc-url $RPC_URL -vvvv --broadcast --sig "deployAll(bool)" true
+```
+
+Make sure to update `.env` file with the appropriate addresses, then run `source .env`.
+
+Once you have deployed all Automata DAOs, you must grant them write access to [`AutomataDaoStorage`](./src/automata_pccs//shared/AutomataDaoStorage.sol) by running:
+
+```bash
+forge script ConfigAutomataDao -rpc-url $RPC_URL -vvvv --broadcast --sig "updateStorageDao()"
+```
+>>>>>>> 227273b (update readme)
